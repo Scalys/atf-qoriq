@@ -5,7 +5,7 @@
 
 # board-specific build parameters
 BOOT_MODE	:= qspi
-BOARD		:= trustbox-xl
+BOARD		:= trustboxxl
 
  # get SoC common build parameters
 include plat/nxp/soc-ls1046/soc.mk
