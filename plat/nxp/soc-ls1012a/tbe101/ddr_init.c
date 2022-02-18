@@ -1,23 +1,21 @@
 /*
- * Copyright 2018 NXP
+ * Copyright 2018, 2021 NXP
  *
  * SPDX-License-Identifier: BSD-3-Clause
- *
- * Author York Sun <york.sun@nxp.com>
  */
 
-#include <platform_def.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <debug.h>
+#include <common/debug.h>
 #include <errno.h>
 #include <string.h>
-#include <io.h>
 #include <fsl_mmdc.h>
+#include "plat_common.h"
+#include <platform_def.h>
 
-long long _init_ddr(void)
+long long init_ddr(void)
 {
 	static const struct fsl_mmdc_info mparam = {
 		.mdctl = 0x05180000,
@@ -35,12 +33,8 @@ long long _init_ddr(void)
 		.mpzqhwctrl = 0xa1390003,
 	};
 
-	mmdc_init(&mparam);
+	mmdc_init(&mparam, NXP_DDR_ADDR);
 	NOTICE("DDR Init Done\n");
 
-	/* Need to see there is any other way to
-	 * deduce the total DRAM size rather
-	 * hard-coding it.
-	 */
 	return NXP_DRAM0_SIZE;
 }
